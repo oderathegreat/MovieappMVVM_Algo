@@ -9,13 +9,17 @@ particular movie
 
 # Libraries Used are 
 Glide
+
 Fragment Lifecycle
+
 Dagger Hilt
+
 ViewBinding
-Navigation Component
-Navigation SafeArgs
+
 Retrofit
+
 JSON Converter with Gson
+
 Logging Interceptor
 
 # MVVM Architecture Use because:

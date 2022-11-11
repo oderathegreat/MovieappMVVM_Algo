@@ -22,7 +22,7 @@ JSON Converter with Gson
 
 Logging Interceptor
 
-# MVVM Architecture Use because:
+#  Why MVVM Architecture ?
 Testability
 With MVVM each piece of code is more granular and if it is implemented right your external and internal dependences are in separate pieces of code from the parts with the core logic that you would like to test.
 

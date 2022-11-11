@@ -15,7 +15,7 @@ class _DataMovieSource (private val api_Service: Movie_Interface, private val di
     private var page = INITIAL_PAGE
 
     val networkState: MutableLiveData<Network_State> = MutableLiveData()
-
+    //getting the initial load
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
 
         networkState.postValue(Network_State.LOADING)
@@ -36,4 +36,28 @@ class _DataMovieSource (private val api_Service: Movie_Interface, private val di
         )
     }
 
+    //after loading happens
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+        networkState.postValue(Network_State.LOADING)
+
+        disposable.add(
+           api_Service.getPopular_Movie(params.key)
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    {
+                        if(it._totalPageCount >= params.key) {
+                            callback.onResult(it.movie_List, params.key+1)
+                            networkState.postValue(Network_State.LOADED)
+                        }
+                        else{
+                            networkState.postValue(Network_State.ENDOFLIST)
+                        }
+                    },
+                    {
+                        networkState.postValue(Network_State.ERROR)
+                        it.message?.let { it1 -> Log.e("MovieDataSource", it1) }
+                    }
+                )
+        )
+    }
 }

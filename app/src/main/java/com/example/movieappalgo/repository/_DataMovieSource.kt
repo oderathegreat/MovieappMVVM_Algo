@@ -60,4 +60,8 @@ class _DataMovieSource (private val api_Service: Movie_Interface, private val di
                 )
         )
     }
+
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+
+    }
 }

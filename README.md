@@ -24,12 +24,17 @@ Logging Interceptor
 
 #  Why MVVM Architecture ?
 Testability
+
+
 With MVVM each piece of code is more granular and if it is implemented right your external and internal dependences are in separate pieces of code from the parts with the core logic that you would like to test.
 
 Extensibility
+
 It sometimes overlaps with maintainability, because of the clean separation boundaries and more granular pieces of code.
 
+
 The ViewModel is easier to unit test than code-behind or event-driven code.
+
 
 The presentation layer and the logic is loosely coupled.
 

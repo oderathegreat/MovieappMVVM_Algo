@@ -11,6 +11,7 @@ import com.example.movieappalgo.apiservice.Movie_Client
 import com.example.movieappalgo.apiservice.Movie_Interface
 import com.example.movieappalgo.frontui.popular.MainActivity_ViewModel
 import com.example.movieappalgo.frontui.popular.PageListRepository
+import com.example.movieappalgo.frontui.popular.PopularMoviePagedListAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainActivity_ViewModel

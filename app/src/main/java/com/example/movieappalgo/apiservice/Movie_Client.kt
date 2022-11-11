@@ -11,7 +11,7 @@ const val MOVIE_API_KEY =""
 const val  _BASE_URL = ""
 const val _POSTER_URL = ""
 
-const val _PAGENUM =1
+const val INITIAL_PAGE =1
 const val _PER_PAGE_POST = 18
 
 object Movie_Client{

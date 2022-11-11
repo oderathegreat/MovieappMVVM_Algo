@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.movieappalgo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MovieAppAlgo"
         tools:targetApi="31">
         <activity
+            android:name=".SingleActivity"
+            android:exported="false" />
+        <activity
             android:name=".frontui.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,8 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".frontui.SingleMovie"
     </application>
 
 </manifest>

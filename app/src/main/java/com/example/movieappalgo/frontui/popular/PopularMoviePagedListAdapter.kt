@@ -7,23 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieappalgo.R
-import com.example.movieappalgo.apiservice.Movie_Interface
 import com.example.movieappalgo.apiservice.POSTER_BASE_URL
-import com.example.movieappalgo.apiservice._PER_PAGE_POST
 import com.example.movieappalgo.model.Movie
-import com.example.movieappalgo.repository.DataFactory
 import com.example.movieappalgo.repository.Network_State
-import com.example.movieappalgo.repository._DataMovieSource
-import io.reactivex.disposables.CompositeDisposable
 
 class PopularMoviePagedListAdapter (public val context: Context) : PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback())  {
 

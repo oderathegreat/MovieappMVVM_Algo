@@ -3,10 +3,13 @@ package com.example.movieappalgo.frontui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieappalgo.R
@@ -16,9 +19,12 @@ import com.example.movieappalgo.frontui.popular.MainActivity_ViewModel
 import com.example.movieappalgo.frontui.popular.MoviePagedListRepository
 import com.example.movieappalgo.frontui.popular.PageListRepository
 import com.example.movieappalgo.frontui.popular.PopularMoviePagedListAdapter
+import com.example.movieappalgo.repository.Network_State
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainActivity_ViewModel
+    private lateinit var progress_bar_popular:ProgressBar
 
     lateinit var movieRepository: MoviePagedListRepository
 
@@ -26,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var rv_movie_list : RecyclerView = findViewById(R.id.rv_movie_list)
+        progress_bar_popular = findViewById(R.id.progress_bar)
 
         val apiService : Movie_Interface = Movie_Client.getClient()
         movieRepository = MoviePagedListRepository(apiService)
@@ -52,9 +59,9 @@ class MainActivity : AppCompatActivity() {
             movieAdapter.submitList(it)
         })
 
-        viewModel.network.observe(this, Observer {
-            progress_bar_popular.visibility = if (viewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            txt_error_popular.visibility = if (viewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
+       viewModel.networkState.observe(this, Observer {
+            progress_bar_popular.visibility = if (viewModel.listIsEmpty() && it == Network_State.LOADING) View.VISIBLE else View.GONE
+            txt_error_popular.visibility = if (viewModel.listIsEmpty() && it == Network_State.ERROR) View.VISIBLE else View.GONE
 
             if (!viewModel.listIsEmpty()) {
                 movieAdapter.setNetworkState(it)
@@ -67,14 +74,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getViewModel(): MainActivity_ViewModel {
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return MainActivity_ViewModel(movieRepo) as T
-            }
-        })[MainActivity_ViewModel::class.java]
+
+                return MainActivity_ViewModel(movieRepository)
+
+        }
     }
 
 
 
-}

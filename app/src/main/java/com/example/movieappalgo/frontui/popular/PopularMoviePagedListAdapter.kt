@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.movie_list_item.view.*
+import kotlinx.android.synthetic.main.network_state_item.view.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
@@ -15,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieappalgo.R
 import com.example.movieappalgo.apiservice.Movie_Interface
+import com.example.movieappalgo.apiservice.POSTER_BASE_URL
 import com.example.movieappalgo.apiservice._PER_PAGE_POST
+import com.example.movieappalgo.frontui.SingleMovie
 import com.example.movieappalgo.model.Movie
 import com.example.movieappalgo.repository.DataFactory
 import com.example.movieappalgo.repository.Network_State
@@ -90,7 +94,7 @@ class PopularMoviePagedListAdapter (public val context: Context) : PagedListAdap
             itemView.cv_movie_title.text = movie?.title
             itemView.cv_movie_release_date.text =  movie?.releaseDate
 
-            val moviePosterURL = POSTER_BASE_URL + movie?.posterPath
+            val moviePosterURL = POSTER_BASE_URL + movie?.poster_Path
             Glide.with(itemView.context)
                 .load(moviePosterURL)
                 .into(itemView.cv_iv_movie_poster);
@@ -107,19 +111,19 @@ class PopularMoviePagedListAdapter (public val context: Context) : PagedListAdap
 
     class NetworkStateItemViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(networkState: NetworkState?) {
-            if (networkState != null && networkState == NetworkState.LOADING) {
+        fun bind(networkState: Network_State?) {
+            if (networkState != null && networkState == Network_State.LOADING) {
                 itemView.progress_bar_item.visibility = View.VISIBLE;
             }
             else  {
                 itemView.progress_bar_item.visibility = View.GONE;
             }
 
-            if (networkState != null && networkState == NetworkState.ERROR) {
+            if (networkState != null && networkState == Network_State.ERROR) {
                 itemView.error_msg_item.visibility = View.VISIBLE;
                 itemView.error_msg_item.text = networkState.msg;
             }
-            else if (networkState != null && networkState == NetworkState.ENDOFLIST) {
+            else if (networkState != null && networkState == Network_State.ENDOFLIST) {
                 itemView.error_msg_item.visibility = View.VISIBLE;
                 itemView.error_msg_item.text = networkState.msg;
             }
@@ -130,7 +134,7 @@ class PopularMoviePagedListAdapter (public val context: Context) : PagedListAdap
     }
 
 
-    fun setNetworkState(newNetworkState: NetworkState) {
+    fun setNetworkState(newNetworkState: Network_State) {
         val previousState = this.networkState
         val hadExtraRow = hasExtraRow()
         this.networkState = newNetworkState

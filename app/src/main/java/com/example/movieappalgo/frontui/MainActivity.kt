@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,7 +14,6 @@ import com.example.movieappalgo.apiservice.Movie_Client
 import com.example.movieappalgo.apiservice.Movie_Interface
 import com.example.movieappalgo.frontui.popular.MainActivity_ViewModel
 import com.example.movieappalgo.frontui.popular.MoviePagedListRepository
-import com.example.movieappalgo.frontui.popular.PageListRepository
 import com.example.movieappalgo.frontui.popular.PopularMoviePagedListAdapter
 import com.example.movieappalgo.repository.Network_State
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val viewType = movieAdapter.getItemViewType(position)
-                if (viewType == movieAdapter.MOVIE_VIEW_TYPE) return  1    // Movie_VIEW_TYPE will occupy 1 out of 3 span
-                else return 3                                              // NETWORK_VIEW_TYPE will occupy all 3 span
+                if (viewType == movieAdapter.MOVIE_VIEW_TYPE) return  1
+                else return 3
             }
         };
 
@@ -75,9 +71,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getViewModel(): MainActivity_ViewModel {
 
-                return MainActivity_ViewModel(movieRepository)
+        return MainActivity_ViewModel(movieRepository)
 
-        }
+    }
     }
 
 

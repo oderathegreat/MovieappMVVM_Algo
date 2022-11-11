@@ -9,6 +9,7 @@ data class Movie_Detail(
     val overview:String,
     val revenue: String,
     val popularity: String,
+    val tagline: String,
     val title:String,
     val rating: Double,
     val video : Boolean,

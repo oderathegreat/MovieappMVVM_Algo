@@ -3,11 +3,12 @@ package com.example.movieappalgo.frontui.popular
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
+import com.example.movieappalgo.frontui.MovieDetailesRepository
 import com.example.movieappalgo.model.Movie
 import com.example.movieappalgo.repository.Network_State
 import io.reactivex.disposables.CompositeDisposable
 
-class MainActivity_ViewModel (private val movieRepository : MoviePagedListRepository) : ViewModel() {
+class MainActivity_ViewModel(private val movieRepository: MoviePagedListRepository) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 

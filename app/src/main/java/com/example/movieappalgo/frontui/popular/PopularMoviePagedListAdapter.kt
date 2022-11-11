@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieappalgo.R
 import com.example.movieappalgo.apiservice.POSTER_BASE_URL
+import com.example.movieappalgo.frontui.SingleMovie
 import com.example.movieappalgo.model.Movie
 import com.example.movieappalgo.repository.Network_State
 

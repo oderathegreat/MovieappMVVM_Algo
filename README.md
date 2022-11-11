@@ -32,3 +32,6 @@ It sometimes overlaps with maintainability, because of the clean separation boun
 The ViewModel is easier to unit test than code-behind or event-driven code.
 
 The presentation layer and the logic is loosely coupled.
+
+![android-mvvm-pattern](https://user-images.githubusercontent.com/28957088/201385581-08d74afc-250b-4550-9d62-5ca09a9bebd1.png)
+

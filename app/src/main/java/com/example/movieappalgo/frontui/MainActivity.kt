@@ -4,19 +4,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieappalgo.R
 import com.example.movieappalgo.apiservice.Movie_Client
 import com.example.movieappalgo.apiservice.Movie_Interface
 import com.example.movieappalgo.frontui.popular.MainActivity_ViewModel
+import com.example.movieappalgo.frontui.popular.MoviePagedListRepository
 import com.example.movieappalgo.frontui.popular.PageListRepository
 import com.example.movieappalgo.frontui.popular.PopularMoviePagedListAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainActivity_ViewModel
 
-    lateinit var movieRepo: PageListRepository
+    lateinit var movieRepository: MoviePagedListRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         var rv_movie_list : RecyclerView = findViewById(R.id.rv_movie_list)
 
         val apiService : Movie_Interface = Movie_Client.getClient()
-        movieRepo = PageListRepository(apiService)
+        movieRepository = MoviePagedListRepository(apiService)
 
         viewModel = getViewModel()
 
@@ -59,6 +63,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+
+    private fun getViewModel(): MainActivity_ViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return MainActivity_ViewModel(movieRepo) as T
+            }
+        })[MainActivity_ViewModel::class.java]
     }
 
 
